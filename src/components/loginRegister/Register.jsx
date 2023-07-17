@@ -20,7 +20,7 @@ export const Register = (props) => {
             alert(res.data.message)
             if (res.data.valid) {
                 if (res.data.token) localStorage.setItem(config.localTokenKey, res.data.token);
-                document.location.href = "/";
+                document.location.href = config.prefix;
             }
         })
         .catch((err) => {
@@ -30,7 +30,7 @@ export const Register = (props) => {
 
     return (
         <div className="auth-form-container">
-            <button className="secondary back-to-home-button" onClick={()=>{document.location.href = "/"}}>Back To Home</button>
+            <button className="secondary back-to-home-button" onClick={()=>{document.location.href = config.prefix}}>Back To Home</button>
             <h2>Register</h2>
             <form className="register-form" onSubmit={handleSubmit}>
                 <label htmlFor="name">Full name</label>

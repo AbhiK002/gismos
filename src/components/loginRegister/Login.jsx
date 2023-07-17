@@ -19,7 +19,7 @@ export const Login = (props) => {
             alert(res.data.message)
             if (res.data.valid) {
                 localStorage.setItem(config.localTokenKey, res.data.token);
-                document.location.href = "/";
+                document.location.href = config.prefix;
             }
         })
         .catch((err) => {
@@ -29,7 +29,7 @@ export const Login = (props) => {
 
     return (
         <div className="auth-form-container">
-            <button className="secondary back-to-home-button" onClick={()=>{document.location.href = "/"}}>Back To Home</button>
+            <button className="secondary back-to-home-button" onClick={()=>{document.location.href = config.prefix}}>Back To Home</button>
             <h2>Login</h2>
             <form className="login-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">Email</label>
