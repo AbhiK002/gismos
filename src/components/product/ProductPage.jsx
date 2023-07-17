@@ -11,7 +11,7 @@ function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
     
     useEffect(() => {
         if(!currentProduct._id) {
-            navigate(config.homePage);
+            document.location.href = config.prefix;
             return;
         }
     }, [])
@@ -63,7 +63,7 @@ function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
                     })
                 }}>{viewedProduct.outOfStock ? "OUT OF STOCK" : "Add To Cart"}</button>
                 <button className="back-home-button secondary" onClick={() => {
-                    navigate(config.homePage)
+                    document.location.href = config.prefix
                 }}>Go to Homepage</button>
             </div>
         </div>

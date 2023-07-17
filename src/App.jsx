@@ -44,7 +44,7 @@ function removeToken() {
 function TopBar({userDetails}) {
     const navigate = useNavigate();
     return <div className="top-bar">
-        <div className='logo-div' onClick={() => {navigate(config.homePage)}}>
+        <div className='logo-div' onClick={() => {document.location.href = config.prefix}}>
             <img className='logo-img' src='./logo.png' alt='[LOGO]' />
             <span className='logo-text'>GiSmos</span>
         </div>
@@ -190,7 +190,7 @@ function App() {
             <Route path='/' Component={() => {return <><TopBar userDetails={userDetails} /><Home userDetails={userDetails} changeProductView={changeProductView} addToCart={addToCart} productsList={productsList} userCart={userCart}/></>}} />
             <Route path='/login' Component={
                 currentSessionActive ? 
-                () => {navigate(config.homePage); return null} :
+                () => {document.location.href = config.prefix; return null} :
                 FormApp
             } />
             <Route path='/profile' Component={() => {return <><TopBar userDetails={userDetails} /><Profile userDetails={userDetails} /></>}} />
@@ -198,14 +198,14 @@ function App() {
             <Route path='/confirm' Component={
                 currentSessionActive ?
                 () => {return <><TopBar userDetails={userDetails} /><Confirm userDetails={userDetails} productsList={productsList} userCart={userCart} removeFromCart={removeFromCart} /></>} :
-                () => {navigate(config.homePage); return null}
+                () => {document.location.href = config.prefix; return null}
             } />
             <Route path='/orders' Component={
                 !currentSessionActive ? 
-                () => {navigate(config.homePage); return null} :
+                () => {document.location.href = config.prefix; return null} :
                 () => {return <><TopBar userDetails={userDetails} /><Orders currentUser={userDetails} productsList={productsList} /></>}
             } />
-            <Route path='/*' Component={() => {return <>ERROR 404: Page Not found. Go to <a onClick={()=>{navigate(config.homePage)}}>Homepage</a></>}} />
+            <Route path='/*' Component={() => {return <>ERROR 404: Page Not found. Go to <a onClick={()=>{document.location.href = config.prefix}}>Homepage</a></>}} />
         </Routes>
     </div>
 }
