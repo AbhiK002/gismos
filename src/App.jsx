@@ -45,8 +45,8 @@ function TopBar({userDetails}) {
     const navigate = useNavigate();
     return <div className="top-bar">
         <div className='logo-div' onClick={() => {navigate(config.homePage)}}>
-            <img className='logo-img' src='' alt='[LOGO]' />
-            <span className='logo-text'>E-Commerce</span>
+            <img className='logo-img' src='./logo.png' alt='[LOGO]' />
+            <span className='logo-text'>GiSmos</span>
         </div>
         <ul className='nav-bar'>
             <li className='nav-link'><a onClick={() => {navigate(userDetails._id ? config.ordersPage : config.loginPage)}}><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000" viewBox="0 0 256 256"><path d="M224,177.32122V78.67878a8,8,0,0,0-4.07791-6.9726l-88-49.5a8,8,0,0,0-7.84418,0l-88,49.5A8,8,0,0,0,32,78.67878v98.64244a8,8,0,0,0,4.07791,6.9726l88,49.5a8,8,0,0,0,7.84418,0l88-49.5A8,8,0,0,0,224,177.32122Z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></path><polyline points="177.022 152.511 177.022 100.511 80 47" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></polyline><polyline points="222.897 74.627 128.949 128 33.108 74.617" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></polyline><line x1="128.94915" y1="128" x2="128.01036" y2="234.82131" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line></svg>
@@ -205,7 +205,7 @@ function App() {
                 () => {navigate(config.homePage); return null} :
                 () => {return <><TopBar userDetails={userDetails} /><Orders currentUser={userDetails} productsList={productsList} /></>}
             } />
-            <Route path='/*' Component={() => {return <>ERROR 404: Page Not found. Go to <a href="#" onClick={()=>{navigate(config.homePage)}}>Homepage</a></>}} />
+            <Route path='/*' Component={() => {return <>ERROR 404: Page Not found. Go to <a onClick={()=>{navigate(config.homePage)}}>Homepage</a></>}} />
         </Routes>
     </div>
 }
