@@ -1,4 +1,4 @@
-const frontEndPrefix = "/ecomm"
+const frontEndPrefix = ""
 
 export default {
     getBackendUrl: (suffix) => {return "http://localhost:3002" + suffix},
@@ -13,4 +13,5 @@ export default {
     profilePage: `${frontEndPrefix}/profile`,
     productPage: `${frontEndPrefix}/product`,
     confirmPage: `${frontEndPrefix}/confirm`,
+    ordersPage: `${frontEndPrefix}/orders`,
 }

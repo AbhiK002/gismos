@@ -1,24 +1,42 @@
 :root {
-  --color-1: rgb(236, 118, 40); 
+  --color-1: rgb(236, 118, 40);
   --color-2: rgb(255, 255, 255);
+  --color-3: rgb(227, 98, 12);
+  --color-4: rgb(255, 169, 111);
+  --color-5: rgb(255, 200, 164);
+  --grey-0: rgb(100, 100, 100);
+  --grey-1: rgb(120, 120, 120);
+  --grey-2: rgb(166, 166, 166);
+  --grey-3: rgb(200, 200, 200);
+  --grey-4: rgb(229, 229, 229);
+
+  font-size: 8px;
+
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 html, body {
   margin: 0;
   padding: 0;
+  font-size: 2rem;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 label {
   text-align: left;
-  padding: 0.25rem 0;
+  padding: 1rem 0;
+  font-size: 2rem;
 }
 
 input {
   margin: 0.5rem 0;
-  padding: 1rem;
+  padding: 2rem;
   border: none;
   border-radius: 10px;
-  font-size: 1rem
+  font-size: 2rem
 }
 
 button {
@@ -80,4 +98,5 @@ input[type=text] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  box-shadow: 0px 0px 4px var(--color-1);
 }
