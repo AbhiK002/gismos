@@ -16,9 +16,13 @@ const productCategories = [
     "Webcams"
 ]
 
-function Home({userDetails, changeProductView, changeCart, productsList, currentCart}) {
+function Home({userDetails, changeProductView, addToCart, productsList, userCart}) {
     const navigate = useNavigate();
     let [categoryFilters, setCategoryFilters] = useState([])
+
+    if (productsList[0] == "ERROR") {
+        return <>Some Error Occurred</>
+    }
 
     return <div className='home-main'>
         <div className='filters-menu'>
@@ -45,26 +49,46 @@ function Home({userDetails, changeProductView, changeCart, productsList, current
         <div className='home-content'>
             {
                 productsList.map((product) => {
-                    return <div className='product-card' onClick={() => {
+                    if (categoryFilters.length > 0 && !categoryFilters.includes(product.category)) {
+                        return;
+                    }
+                    return <div className='product-card' onClick={(e) => {
+                        if (e.target.classList.contains("add-to-cart-button")) return;
                         changeProductView(product);
                         navigate(config.productPage);
                     }}>
-                        <img src={product.photo} height={64} alt='Product Photo' />
+                        <img className='product-img' src={product.photo} height={64} alt='Product Photo' />
                         <h3 className='product-title'>{product.title}</h3>
-                        <p className='product-price'>{product.price}</p>
+                        <p className='product-price'>Rs. {product.price}</p>
                         <div className='lower-container'>
-                            <span>{product.outOfStock ? "OUT OF STOCK" : ""}</span>
-                            <button className='add-to-cart-button' onClick={() => {
-                                let userCart = currentCart;
-                                userCart.push(product._id)
-                                axios.put(config.getBackendUrl("/update-cart"), {cart: userCart})
+                            <button className={`add-to-cart-button${product.outOfStock ? " disabled" : ""}`} onClick={() => {
+                                if (product.outOfStock) {
+                                    return;
+                                }
+                                if (!userDetails._id) {
+                                    alert("Please log in to add to cart");
+                                    return;
+                                }
+                                const token = localStorage.getItem(config.localTokenKey)
+                                
+                                const cart = userCart;
+                                cart.push(product._id);
+
+                                axios.put(config.getBackendUrl("/update-cart"), {cart: cart}, {
+                                    headers: {
+                                        Authorization: `Bearer ${token}`
+                                    }
+                                })
                                 .then((res) => {
                                     if (res.data.valid) {
                                         alert("Added To Cart");
-                                        changeCart(userCart)
+                                        addToCart(product._id);
                                     }
                                 })
-                            }}>Add To Cart</button>
+                                .catch((err) => {
+                                    alert(err.response ? err.response.data.message : "Some error occurred");
+                                })
+                            }}>{product.outOfStock ? "OUT OF STOCK" : "Add To Cart"}</button>
                         </div>
                     </div>
                 })

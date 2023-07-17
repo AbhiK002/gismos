@@ -7,6 +7,8 @@ import config from './config.js';
 import axios from 'axios';
 import './app.css'
 import ProductPage from './components/product/ProductPage.jsx';
+import Orders from './components/orders/Orders.jsx';
+import Profile from './components/profile/Profile.jsx';
 
 function setSessionUser(user_id, name, email) {
     sessionStorage.setItem(config.sessionIdKey, user_id);
@@ -34,9 +36,6 @@ function removeSessionUser() {
 function getToken() {
     return localStorage.getItem(config.localTokenKey)
 }
-function setToken(token) {
-    localStorage.setItem(config.localTokenKey, token)
-}
 function removeToken() {
     localStorage.clear();
 }
@@ -49,15 +48,18 @@ function TopBar({userDetails}) {
             <span className='logo-text'>E-Commerce</span>
         </div>
         <ul className='nav-bar'>
-            <li className='nav-link'><a href={config.ordersPage}><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000" viewBox="0 0 256 256"><path d="M224,177.32122V78.67878a8,8,0,0,0-4.07791-6.9726l-88-49.5a8,8,0,0,0-7.84418,0l-88,49.5A8,8,0,0,0,32,78.67878v98.64244a8,8,0,0,0,4.07791,6.9726l88,49.5a8,8,0,0,0,7.84418,0l88-49.5A8,8,0,0,0,224,177.32122Z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></path><polyline points="177.022 152.511 177.022 100.511 80 47" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></polyline><polyline points="222.897 74.627 128.949 128 33.108 74.617" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></polyline><line x1="128.94915" y1="128" x2="128.01036" y2="234.82131" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line></svg>
+            <li className='nav-link'><a onClick={() => {navigate(userDetails._id ? config.ordersPage : config.loginPage)}}><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000" viewBox="0 0 256 256"><path d="M224,177.32122V78.67878a8,8,0,0,0-4.07791-6.9726l-88-49.5a8,8,0,0,0-7.84418,0l-88,49.5A8,8,0,0,0,32,78.67878v98.64244a8,8,0,0,0,4.07791,6.9726l88,49.5a8,8,0,0,0,7.84418,0l88-49.5A8,8,0,0,0,224,177.32122Z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></path><polyline points="177.022 152.511 177.022 100.511 80 47" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></polyline><polyline points="222.897 74.627 128.949 128 33.108 74.617" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></polyline><line x1="128.94915" y1="128" x2="128.01036" y2="234.82131" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line></svg>
                 My Orders</span></a></li>
-            <li className='nav-link'><a href={config.confirmPage}><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000" viewBox="0 0 256 256"><rect x="24" y="56" width="208" height="144" rx="8" strokeWidth="16" stroke="#000" strokeLinecap="round" strokeLinejoin="round" fill="none"></rect><line x1="167.99414" y1="168" x2="199.99414" y2="168" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line><line x1="119.99414" y1="168" x2="135.99414" y2="168" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line><line x1="23.99414" y1="96.85228" x2="231.99412" y2="96.85228" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line></svg>
+            <li className='nav-link'><a onClick={() => {navigate(userDetails._id ? config.confirmPage : config.loginPage)}}><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000" viewBox="0 0 256 256"><rect x="24" y="56" width="208" height="144" rx="8" strokeWidth="16" stroke="#000" strokeLinecap="round" strokeLinejoin="round" fill="none"></rect><line x1="167.99414" y1="168" x2="199.99414" y2="168" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line><line x1="119.99414" y1="168" x2="135.99414" y2="168" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line><line x1="23.99414" y1="96.85228" x2="231.99412" y2="96.85228" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line></svg>
                 Checkout</span></a></li>
-            <li className='nav-link'><a href={
-                userDetails._id ? config.profilePage : config.loginPage
-                }><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000" viewBox="0 0 256 256"><circle cx="128" cy="128" r="96" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></circle><circle cx="128" cy="120" r="40" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></circle><path d="M63.79905,199.37405a72.02812,72.02812,0,0,1,128.40177-.00026" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></path></svg>
+            <li className='nav-link'><a onClick={() => {
+                navigate(userDetails._id ? config.profilePage : config.loginPage)
+            }}><span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000" viewBox="0 0 256 256"><circle cx="128" cy="128" r="96" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></circle><circle cx="128" cy="120" r="40" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></circle><path d="M63.79905,199.37405a72.02812,72.02812,0,0,1,128.40177-.00026" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></path></svg>
                 {userDetails._id ? "Account" : "Login"}</span></a></li>
-            <li className='nav-link'><a href="#"><span><svg width="32" height="32" version="1.1" viewBox="0 0 47.967 48.049" xmlns="http://www.w3.org/2000/svg"><path d="m23.054 37.992c0 1.77-1.543 3.2048-3.4464 3.2048s-3.4464-1.4348-3.4464-3.2048c-1e-6 -1.77 1.543-3.2048 3.4464-3.2048s3.4464 1.4348 3.4464 3.2048zm-6.1096-9.3234s-4.4386 0-4.3118 2.7192c0.1268 2.7192 4.5654 2.7192 4.5654 2.7192l24.73-0.1648m-40.328-26.958s5.1162-0.65174 6.9069 0.93104c1.7907 1.5828 7.9301 19.925 7.9301 19.925s-0.63952 0.83792 4.7325 0.93104c5.372 0.0931 18.674 0.37242 20.337-0.37242 1.6628-0.74485 4.8604-13.128 4.8604-13.128s-0.63954-2.9794-4.9883-3.2587c-4.3488-0.27932-25.197 0.0931-25.197 0.0931s-3.8372 0.74485-4.2209 1.6759m28.513 24.21c0 1.77-1.5063 3.2048-3.3643 3.2048s-3.3643-1.4348-3.3643-3.2048c0-1.77 1.5063-3.2048 3.3643-3.2048s3.3643 1.4348 3.3643 3.2048z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3.2"/></svg>
+            <li className='nav-link'><a href="#" onClick={() => {
+                const cartDiv = document.getElementById("cart-view");
+                cartDiv.classList.toggle("visible")
+            }}><span><svg width="32" height="32" version="1.1" viewBox="0 0 47.967 48.049" xmlns="http://www.w3.org/2000/svg"><path d="m23.054 37.992c0 1.77-1.543 3.2048-3.4464 3.2048s-3.4464-1.4348-3.4464-3.2048c-1e-6 -1.77 1.543-3.2048 3.4464-3.2048s3.4464 1.4348 3.4464 3.2048zm-6.1096-9.3234s-4.4386 0-4.3118 2.7192c0.1268 2.7192 4.5654 2.7192 4.5654 2.7192l24.73-0.1648m-40.328-26.958s5.1162-0.65174 6.9069 0.93104c1.7907 1.5828 7.9301 19.925 7.9301 19.925s-0.63952 0.83792 4.7325 0.93104c5.372 0.0931 18.674 0.37242 20.337-0.37242 1.6628-0.74485 4.8604-13.128 4.8604-13.128s-0.63954-2.9794-4.9883-3.2587c-4.3488-0.27932-25.197 0.0931-25.197 0.0931s-3.8372 0.74485-4.2209 1.6759m28.513 24.21c0 1.77-1.5063 3.2048-3.3643 3.2048s-3.3643-1.4348-3.3643-3.2048c0-1.77 1.5063-3.2048 3.3643-3.2048s3.3643 1.4348 3.3643 3.2048z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3.2"/></svg>
                 Cart</span></a></li>
         </ul> 
     </div>
@@ -71,7 +73,16 @@ function App() {
     let [userCart, setUserCart] = useState([]);
 
     function changeUserCart(cart) {
-        setUserCart(cart)
+        setUserCart(cart);
+    }
+    function addToCart(item) {
+        setUserCart([...userCart, item]);
+    }
+    function removeFromCart(index) {
+        let list = userCart.filter((id, i) => {
+            return i != index
+        });
+        setUserCart(list)
     }
     function changeProductsList(list) {
         setProductsList(list)
@@ -82,7 +93,7 @@ function App() {
         }
         axios.get(config.getBackendUrl("/get-products")).then((res) => {
             if (res.data.valid) {
-                changeProductsList(res.data.products)            
+                changeProductsList(res.data.products);    
             }
         }).catch((err) => {
             changeProductsList(["ERROR"])
@@ -97,11 +108,11 @@ function App() {
     }
 
     useEffect(() => {
-        let currentSessionActive = isSessionActive();
-        if (currentSessionActive) {
-            changeUserDetails(getSessionUser());
-            return;
-        }
+        // let currentSessionActive = isSessionActive();
+        // if (currentSessionActive) {
+        //     changeUserDetails(getSessionUser());
+        //     return;
+        // }
 
         const token = getToken();
 
@@ -120,28 +131,56 @@ function App() {
             }).catch(err => {
                 removeSessionUser();
                 removeToken();
+                console.log(err);
             })
         }
         else {
             removeSessionUser();
             removeToken();
+            console.log("jaha");
         }
     }, [])
 
     let currentSessionActive = isSessionActive();
 
     return <div className='app'>
+        <div id='cart-view'>
+            <button className='close-menu' onClick={() => {
+                document.getElementById("cart-view").classList.toggle("visible")
+            }}>Close Panel</button>
+            {
+                userCart.length > 0 ? 
+                productsList.map((product) => {
+                    if (userCart.includes(product._id)) {
+                        return <div className='cart-item'>
+                            <img className='cart-img' src={product.photo} height={42}/>
+                            <span>
+                                <h4 className='cart-title'>{product.title}</h4>
+                                <span>{product.price}</span>
+                            </span>
+                        </div>
+                    }
+                })
+                : <div className='cart-item'>Cart Empty</div>
+            }
+        </div>
+
         <Routes>
-            <Route path='/' Component={() => {return <><TopBar userDetails={userDetails} /><Home userDetails={userDetails} changeProductView={changeProductView} changeCart={changeUserCart} productsList={productsList} currentCart={userCart}/></>}} />
+            <Route path='/' Component={() => {return <><TopBar userDetails={userDetails} /><Home userDetails={userDetails} changeProductView={changeProductView} addToCart={addToCart} productsList={productsList} userCart={userCart}/></>}} />
             <Route path='/login' Component={
                 currentSessionActive ? 
                 () => {navigate(config.homePage); return null} :
                 FormApp
             } />
-            <Route path='/profile' Component={() => {return <><TopBar userDetails={userDetails} /></>}} />
-            <Route path='/product' Component={() => {return <><TopBar userDetails={userDetails} /><ProductPage currentProduct={currentProductView} /></>}} />
+            <Route path='/profile' Component={() => {return <><TopBar userDetails={userDetails} /><Profile userDetails={userDetails} /></>}} />
+            <Route path='/product' Component={() => {return <><TopBar userDetails={userDetails} /><ProductPage userDetails={userDetails} currentProduct={currentProductView} addToCart={addToCart} userCart={userCart} /></>}} />
             <Route path='/confirm' Component={() => {return <><TopBar userDetails={userDetails} /></>}} />
-            <Route path='/orders' Component={() => {return <><TopBar userDetails={userDetails} /></>}} />
+            <Route path='/orders' Component={
+                !currentSessionActive ? 
+                () => {navigate(config.homePage); return null} :
+                () => {return <><TopBar userDetails={userDetails} /><Orders currentUser={userDetails} productsList={productsList} /></>}
+            } />
+            <Route path='/*' Component={() => {return <>ERROR 404: Page Not found. Go to <a href="#" onClick={()=>{navigate(config.homePage)}}>Homepage</a></>}} />
         </Routes>
     </div>
 }
