@@ -8,21 +8,23 @@
 }
 
 .orders-list-div { 
-    padding: 2rem
+    padding: 2rem;
 }
 
 .order-item {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 4rem;
     border: 2px solid var(--color-3);
     border-radius: 16px;
     gap: 4rem;
+    min-width: 300px;
+    max-width: 600px;
 }
 
 .order-photo {
-    width: 30%;
+    width: 100px;
 }
 
 @media (max-width: 500px) {

@@ -98,7 +98,7 @@ a:active, a:visited {
     right: 0;
     z-index: 4;
     background-color: var(--grey-1);
-    width: 300px;
+    min-width: 300px;
     padding: 8px;
     border: 2px solid black;
     border-radius: 12px;

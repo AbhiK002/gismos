@@ -9,6 +9,7 @@ import './app.css'
 import ProductPage from './components/product/ProductPage.jsx';
 import Orders from './components/orders/Orders.jsx';
 import Profile from './components/profile/Profile.jsx';
+import Confirm from './components/confirm/Confirm.jsx';
 
 function setSessionUser(user_id, name, email) {
     sessionStorage.setItem(config.sessionIdKey, user_id);
@@ -194,7 +195,11 @@ function App() {
             } />
             <Route path='/profile' Component={() => {return <><TopBar userDetails={userDetails} /><Profile userDetails={userDetails} /></>}} />
             <Route path='/product' Component={() => {return <><TopBar userDetails={userDetails} /><ProductPage userDetails={userDetails} currentProduct={currentProductView} addToCart={addToCart} userCart={userCart} /></>}} />
-            <Route path='/confirm' Component={() => {return <><TopBar userDetails={userDetails} /></>}} />
+            <Route path='/confirm' Component={
+                currentSessionActive ?
+                () => {return <><TopBar userDetails={userDetails} /><Confirm userDetails={userDetails} productsList={productsList} userCart={userCart} removeFromCart={removeFromCart} /></>} :
+                () => {navigate(config.homePage); return null}
+            } />
             <Route path='/orders' Component={
                 !currentSessionActive ? 
                 () => {navigate(config.homePage); return null} :
