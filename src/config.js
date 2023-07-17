@@ -1,7 +1,7 @@
 const frontEndPrefix = ""
 
 export default {
-    getBackendUrl: (suffix) => {return "http://localhost:3002" + suffix},
+    getBackendUrl: (suffix) => {return "https://gismos-backend-production.up.railway.app" + suffix},
     localTokenKey: "token-mgr28ocn3gcr87",
 
     sessionIdKey: "id-biufniwehmf83298m",
