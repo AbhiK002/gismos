@@ -109,6 +109,7 @@ a:active, a:visited {
 .right-nav {
     display: flex;
     gap: 1rem;
+    margin-right: 4px;
 }
 
 #cart-view {
@@ -138,6 +139,7 @@ a:active, a:visited {
 #cart-view h2 {
     color: white;
     margin: 0;
+    margin-bottom: 2rem;
 }
 
 #cart-view h4 {
@@ -150,8 +152,19 @@ a:active, a:visited {
 }
 
 .close-menu {
+    position: absolute;
+    top: 0; left: 0;
     margin: 1rem;
-    padding: 1rem;
+    padding: 1rem 2rem;
+    width: fit-content;
+}
+.close-menu::before {
+    visibility: hidden;
+}
+
+.confirm-cart-button {
+    padding: 1rem 2rem;
+    background-color: green;
 }
 
 .cart-item {

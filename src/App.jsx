@@ -170,9 +170,13 @@ function App() {
     return <div className='app'>
         <div id='cart-view'>
             <h2>Your Cart</h2>
-            <button className='close-menu' onClick={() => {
+            <button className='close-menu critical' onClick={() => {
                 document.getElementById("cart-view").classList.toggle("visible")
-            }}>Close Panel</button>
+            }}>X</button>
+            {currentSessionActive ? <button className='confirm-cart-button' onClick={() => {
+                document.getElementById("cart-view").classList.toggle("visible")
+                navigate(config.confirmPage);
+            }}>Confirm Order</button> : <></>}
             {
                 userCart.length > 0 ? 
                 productsList.map((product, index) => {

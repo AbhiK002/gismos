@@ -73,6 +73,7 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                                 }
                                 if (!userDetails._id) {
                                     alert("Please log in to add to cart");
+                                    navigate(config.loginPage);
                                     return;
                                 }
                                 const token = localStorage.getItem(config.localTokenKey)

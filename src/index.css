@@ -78,10 +78,15 @@ button:hover {
   transform: scale(1.05);
 }
 
-.secondary {
+button.secondary {
   background: var(--color-2);
   color: var(--color-1);
   border: 2px solid var(--color-1);
+}
+
+button.critical {
+  background-color: red;
+  color: white
 }
 
 @media (min-width: 768px) {
