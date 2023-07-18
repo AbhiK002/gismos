@@ -57,9 +57,15 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                         changeProductView(product);
                         navigate(config.productPage);
                     }}>
-                        <img className='product-img' src={product.photo} height={64} alt='Product Photo' />
-                        <h3 className='product-title'>{product.title}</h3>
-                        <p className='product-price'>Rs. {product.price}</p>
+                        <div className='upper-container'>
+                            <div className='product-img-container'>
+                                <img className='product-img' src={product.photo} width={128} alt='Product Photo' />
+                            </div>
+                            <div className='product-details'>
+                                <h3 className='product-title'>{product.title}</h3>
+                                <p className='product-price'>Rs. {product.price}</p>
+                            </div>
+                        </div>
                         <div className='lower-container'>
                             <button className={`add-to-cart-button${product.outOfStock ? " disabled" : ""}`} onClick={() => {
                                 if (product.outOfStock) {

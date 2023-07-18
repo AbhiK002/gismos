@@ -37,7 +37,7 @@
     transform: skew(-20deg);
 }
 
-ul {
+.nav-bar {
     display: flex;
     gap: 4px;
     list-style: none;
@@ -50,6 +50,10 @@ a {
 }
 a:active, a:visited {
     color: inherit
+}
+
+.nav-link {
+    list-style: none;
 }
 
 .nav-link > a {
@@ -73,11 +77,11 @@ a:active, a:visited {
     stroke: var(--color-3);
     transition: all 400ms;
 }
-.nav-link a span {
+.nav-link a > span {
     transform: skew(20deg);
     display: inline-flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: 1rem 2rem;
     gap: 4px
 }
 
@@ -90,6 +94,72 @@ a:active, a:visited {
 
 .nav-link:hover path, .nav-link:hover rect, .nav-link:hover circle, .nav-link:hover line, .nav-link:hover polyline {
     stroke: white
+}
+
+.nav-bar-button {
+    z-index: 5;
+    display: none;
+    font-size: 2.6rem;
+}
+
+.nav-bar-button a {
+    height: 40px;
+}
+
+.right-nav {
+    display: flex;
+    gap: 1rem;
+    margin-right: 1rem;
+}
+
+@media (max-width: 810px) {
+    .top-bar * {
+        transition: none;
+    }
+    .logo-div:hover, .nav-link:hover {
+        translate: none;
+        box-shadow: none;
+    }
+    .nav-bar-button {
+        display: flex;
+    }
+
+    .nav-bar {
+        position: absolute;
+        margin: 0;
+        top: 10%;
+        left: 50%;
+        width: 90%;
+        justify-content: center;
+        transform: translateX(-50%);
+        background-color: var(--grey-1);
+        padding: 1rem 4rem;
+        border-radius: 12px;
+        border: 2px solid black;
+        box-shadow: 0px 4px 12px 2px rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        visibility: hidden;
+        scale: 0;
+        translate: 0px;
+        transition: all 300ms;
+        transform-origin: 0px 50%;
+    }
+    .nav-bar.visible {
+        opacity: 1;
+        scale: 1;
+        visibility: visible;
+        translate: 0px 100%
+    }
+}
+
+@media (max-width: 470px) {
+    #cart-text {
+        display: none;
+    }
+
+    .nav-bar svg {
+        display: none;
+    }
 }
 
 #cart-view {
@@ -162,4 +232,10 @@ a:active, a:visited {
     padding: 1rem;
     font-size: 2rem;
     margin-left: 12px
+}
+
+@media (max-width: 870px) {
+    .logo-img {
+        height: 36px;
+    }
 }
