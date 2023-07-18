@@ -57,7 +57,8 @@
 .payment-div {
     display: flex;
     flex-direction: column;
-    gap: 1rem
+    gap: 1rem;
+    padding: 2rem;
 }
 .payment-div input {
     margin-left: 2rem;
@@ -76,4 +77,8 @@
     align-items: center;
     border: 1px solid black;
     border-radius: 12px;
+}
+
+.confirm-order-button {
+    margin-bottom: 2rem;
 }
