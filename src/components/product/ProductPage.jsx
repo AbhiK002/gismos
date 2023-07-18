@@ -45,7 +45,7 @@ function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
                     }
                     const token = localStorage.getItem(config.localTokenKey)
                     const cart = userCart;
-                    cart.push(product._id);
+                    cart.push(viewedProduct._id);
 
                     axios.put(config.getBackendUrl("/update-cart"), {cart: cart}, {
                         headers: {
@@ -55,7 +55,7 @@ function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
                     .then((res) => {
                         if (res.data.valid) {
                             alert("Added To Cart");
-                            addToCart(product._id);
+                            addToCart(viewedProduct._id);
                         }
                     })
                     .catch((err) => {
