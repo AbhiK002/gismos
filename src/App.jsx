@@ -41,7 +41,7 @@ function removeToken() {
     localStorage.clear();
 }
 
-function TopBar({userDetails}) {
+function TopBar({userDetails, userCart}) {
     const navigate = useNavigate();
     return <div className="top-bar">
         <div className='logo-div' onClick={() => {document.location.href = config.prefix}}>
@@ -63,7 +63,7 @@ function TopBar({userDetails}) {
                     const cartDiv = document.getElementById("cart-view");
                     cartDiv.classList.toggle("visible")
                 }}><span><svg width="32" height="32" version="1.1" viewBox="0 0 47.967 48.049" xmlns="http://www.w3.org/2000/svg"><path d="m23.054 37.992c0 1.77-1.543 3.2048-3.4464 3.2048s-3.4464-1.4348-3.4464-3.2048c-1e-6 -1.77 1.543-3.2048 3.4464-3.2048s3.4464 1.4348 3.4464 3.2048zm-6.1096-9.3234s-4.4386 0-4.3118 2.7192c0.1268 2.7192 4.5654 2.7192 4.5654 2.7192l24.73-0.1648m-40.328-26.958s5.1162-0.65174 6.9069 0.93104c1.7907 1.5828 7.9301 19.925 7.9301 19.925s-0.63952 0.83792 4.7325 0.93104c5.372 0.0931 18.674 0.37242 20.337-0.37242 1.6628-0.74485 4.8604-13.128 4.8604-13.128s-0.63954-2.9794-4.9883-3.2587c-4.3488-0.27932-25.197 0.0931-25.197 0.0931s-3.8372 0.74485-4.2209 1.6759m28.513 24.21c0 1.77-1.5063 3.2048-3.3643 3.2048s-3.3643-1.4348-3.3643-3.2048c0-1.77 1.5063-3.2048 3.3643-3.2048s3.3643 1.4348 3.3643 3.2048z" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3.2"/></svg>
-                    <span id='cart-text'>Cart</span></span></a>
+                    <span id='cart-text'>Cart</span>{`(${userCart.length})`}</span></a>
             </li>
             <div className='nav-bar-button nav-link'><a onClick={() => {
                 document.getElementsByClassName("nav-bar")[0].classList.toggle("visible")
@@ -169,7 +169,7 @@ function App() {
 
     return <div className='app'>
         <div id='cart-view'>
-            <h2>Your Cart</h2>
+            <h2>Your Cart {`(${userCart.length})`}</h2>
             <button className='close-menu critical' onClick={() => {
                 document.getElementById("cart-view").classList.toggle("visible")
             }}>X</button>
@@ -198,23 +198,23 @@ function App() {
         </div>
 
         <Routes>
-            <Route path='/' Component={() => {return <><TopBar userDetails={userDetails} /><Home userDetails={userDetails} changeProductView={changeProductView} addToCart={addToCart} productsList={productsList} userCart={userCart}/></>}} />
+            <Route path='/' Component={() => {return <><TopBar userDetails={userDetails} userCart={userCart} /><Home userDetails={userDetails} changeProductView={changeProductView} addToCart={addToCart} productsList={productsList} userCart={userCart}/></>}} />
             <Route path='/login' Component={
                 currentSessionActive ? 
                 () => {document.location.href = config.prefix; return null} :
                 FormApp
             } />
-            <Route path='/profile' Component={() => {return <><TopBar userDetails={userDetails} /><Profile userDetails={userDetails} /></>}} />
-            <Route path='/product' Component={() => {return <><TopBar userDetails={userDetails} /><ProductPage userDetails={userDetails} currentProduct={currentProductView} addToCart={addToCart} userCart={userCart} /></>}} />
+            <Route path='/profile' Component={() => {return <><TopBar userDetails={userDetails} userCart={userCart} /><Profile userDetails={userDetails} /></>}} />
+            <Route path='/product' Component={() => {return <><TopBar userDetails={userDetails} userCart={userCart} /><ProductPage userDetails={userDetails} currentProduct={currentProductView} addToCart={addToCart} userCart={userCart} /></>}} />
             <Route path='/confirm' Component={
                 currentSessionActive ?
-                () => {return <><TopBar userDetails={userDetails} /><Confirm userDetails={userDetails} productsList={productsList} userCart={userCart} removeFromCart={removeFromCart} /></>} :
+                () => {return <><TopBar userDetails={userDetails} userCart={userCart} /><Confirm userDetails={userDetails} productsList={productsList} userCart={userCart} removeFromCart={removeFromCart} /></>} :
                 () => {document.location.href = config.prefix; return null}
             } />
             <Route path='/orders' Component={
                 !currentSessionActive ? 
                 () => {document.location.href = config.prefix; return null} :
-                () => {return <><TopBar userDetails={userDetails} /><Orders currentUser={userDetails} productsList={productsList} /></>}
+                () => {return <><TopBar userDetails={userDetails} userCart={userCart} /><Orders currentUser={userDetails} productsList={productsList} /></>}
             } />
             <Route path='/*' Component={() => {return <>ERROR 404: Page Not found. Go to <a onClick={()=>{document.location.href = config.prefix}}>Homepage</a></>}} />
         </Routes>
