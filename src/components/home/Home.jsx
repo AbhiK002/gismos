@@ -26,6 +26,9 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
 
     return <div className='home-main'>
         <div className='filters-menu'>
+            <button type='button' className='filters-menu-toggle-button secondary' onClick={() => {
+                document.getElementsByClassName("filters-menu")[0].classList.toggle("visible")
+            }}><span id='but-span'>{">>"}</span></button>
             <div className='filter-section' id="category">
                 <h4>Filter by Category</h4>
                 {productCategories.map((category, index) => {
