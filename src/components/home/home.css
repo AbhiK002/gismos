@@ -43,6 +43,7 @@
     flex-grow: 1;
     min-height: 90vh;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: max-content;
     gap: 2rem;
     padding: 2rem;
     background-color: var(--grey-4);
