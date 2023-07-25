@@ -45,10 +45,10 @@
     margin-right: 1rem;
 }
 
-a {
+#root a {
     text-decoration: none;
 }
-a:active, a:visited {
+#root a:active, #root a:visited {
     color: inherit
 }
 

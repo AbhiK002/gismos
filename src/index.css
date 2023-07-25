@@ -89,6 +89,16 @@ button.critical {
   color: white
 }
 
+footer {
+  padding: 12px;
+  text-align: center;
+}
+
+footer a {
+  text-decoration: none;
+  color: var(--color-3)
+}
+
 @media (min-width: 768px) {
   button {
     padding: 16px 48px;
