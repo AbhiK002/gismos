@@ -14,7 +14,7 @@ export const Login = (props) => {
             return;
         }
         
-        axios.post(config.getBackendUrl("/login"), {email: email, password: pass})
+        axios.post(config.getBackendUrl("/login-gismos"), {email: email, password: pass})
         .then((res) => {
             alert(res.data.message)
             if (res.data.valid) {

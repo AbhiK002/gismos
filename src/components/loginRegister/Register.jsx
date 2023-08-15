@@ -15,7 +15,7 @@ export const Register = (props) => {
             return;
         }
 
-        axios.post(config.getBackendUrl("/register"), {name: name, email: email, password: pass})
+        axios.post(config.getBackendUrl("/register-gismos"), {name: name, email: email, password: pass})
         .then((res) => {
             alert(res.data.message)
             if (res.data.valid) {

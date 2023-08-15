@@ -142,7 +142,7 @@ function App() {
         const token = getToken();
 
         if (token) {
-            axios.post(config.getBackendUrl("/autologin"), {}, {
+            axios.post(config.getBackendUrl("/autologin-gismos"), {}, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
