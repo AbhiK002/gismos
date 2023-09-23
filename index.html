@@ -10,7 +10,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GiSmos - Online Shopping Website</title>
   </head>
-  <body>
+  <body onload="remLoad()">
+  <script defer>
+    const remLoad = () => {
+    document.getElementById('loading-screen').style.display = 'none';
+  }
+  </script>
+  <div id="loading-screen">
+    <div id="loading-logo">
+        <span id='img-container'></span>
+        <img src="/logo.png" alt="LOGO" height={150} />
+    </div>
+    <span>Loading Gismos...<br> Sit Tight!</span>
+  </div>
+  <style>
+#loading-screen {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 38px;
+    text-align: center;
+    background-color: white;
+    z-index: 5;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: 300ms;
+}
+
+#loading-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+}
+
+#img-container {
+    border: 12px solid rgb(255, 101, 101);
+    height: 180px;
+    width: 180px;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-radius: 100%;
+    padding: 12px;
+    display: flex;
+    animation: rotate 2s forwards linear infinite;
+}
+
+@keyframes rotate {
+    from {rotate: 0deg}
+    to {rotate: 360deg}
+}
+
+#loading-logo img {
+    margin: auto;
+    position: absolute;
+    height: 150px;
+    width: 150px;
+}
+
+  </style>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <footer class="bottom-banner">

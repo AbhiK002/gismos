@@ -56,7 +56,8 @@ function Confirm({userDetails, productsList, userCart, removeFromCart}) {
                 if (inp.checked) aa++;
             }
             if (aa == 0) {
-                alert("Select at least 1 option")
+                alert("Select at least 1 option");
+                return;
             }
             
             const token = localStorage.getItem(config.localTokenKey)

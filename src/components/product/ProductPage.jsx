@@ -44,8 +44,12 @@ function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
                         navigate(config.loginPage);
                         return;
                     }
+                    if (userCart.includes(product._id)) {
+                        alert("Product already added to cart");
+                        return;
+                    }
                     const token = localStorage.getItem(config.localTokenKey)
-                    const cart = userCart;
+                    const cart = [...userCart, product._id];
 
                     axios.put(config.getBackendUrl("/update-cart"), {cart: cart}, {
                         headers: {

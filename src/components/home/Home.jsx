@@ -79,9 +79,14 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                                     navigate(config.loginPage);
                                     return;
                                 }
+                                if (userCart.includes(product._id)) {
+                                    alert("Product already added to cart");
+                                    return;
+                                }
                                 const token = localStorage.getItem(config.localTokenKey)
                                 
-                                const cart = userCart;
+                                const cart = [...userCart, product._id];
+                                console.log(cart);
 
                                 axios.put(config.getBackendUrl("/update-cart"), {cart: cart}, {
                                     headers: {
@@ -89,6 +94,7 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                                     }
                                 })
                                 .then((res) => {
+                                    console.log(res.data);
                                     if (res.data.valid) {
                                         alert("Added To Cart");
                                         addToCart(product._id);
