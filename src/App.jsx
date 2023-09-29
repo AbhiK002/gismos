@@ -216,7 +216,10 @@ function App() {
                 () => {document.location.href = config.prefix; return null} :
                 () => {return <><TopBar userDetails={userDetails} userCart={userCart} /><Orders currentUser={userDetails} productsList={productsList} /></>}
             } />
-            <Route path='/*' Component={() => {return <>ERROR 404: Page Not found. Go to <a onClick={()=>{document.location.href = config.prefix}}>Homepage</a></>}} />
+            <Route path='/*' Component={() => {return <>
+            <TopBar userDetails={userDetails} userCart={userCart} />
+                <h2 style={{textAlign: "center"}}>ERROR 404: Page Not found. Go to <a onClick={()=>{document.location.href = config.prefix}}>Homepage</a></h2>
+            </>}} />
         </Routes>
     </div>
 }
