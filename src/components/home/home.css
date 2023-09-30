@@ -237,7 +237,7 @@
         background-color: white;
         position: sticky;
         top: 8rem;
-        z-index: 4;
+        z-index: 1;
     }
     .home-sorting-section .filters-menu-toggle-button {
         visibility: visible;

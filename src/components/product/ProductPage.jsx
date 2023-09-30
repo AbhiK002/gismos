@@ -35,40 +35,42 @@ function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
                 <h1>{viewedProduct.title}</h1>
                 <h3>{viewedProduct.description}</h3>
                 <h2 id="price">Rs.{viewedProduct.price}</h2>
-                <button className={`add-to-cart-button${viewedProduct.outOfStock ? " disabled" : ""}`} onClick={() => {
-                    if (viewedProduct.outOfStock) {
-                        return;
-                    }
-                    if (!userDetails._id) {
-                        alert("Please log in to add to cart");
-                        navigate(config.loginPage);
-                        return;
-                    }
-                    if (userCart.includes(product._id)) {
-                        alert("Product already added to cart");
-                        return;
-                    }
-                    const token = localStorage.getItem(config.localTokenKey)
-                    const cart = [...userCart, product._id];
+                <div className="buttons">
+                    <button className={`add-to-cart-button${viewedProduct.outOfStock ? " disabled" : ""}`} onClick={() => {
+                        if (viewedProduct.outOfStock) {
+                            return;
+                        }
+                        if (!userDetails._id) {
+                            alert("Please log in to add to cart");
+                            navigate(config.loginPage);
+                            return;
+                        }
+                        if (userCart.includes(product._id)) {
+                            alert("Product already added to cart");
+                            return;
+                        }
+                        const token = localStorage.getItem(config.localTokenKey)
+                        const cart = [...userCart, product._id];
 
-                    axios.put(config.getBackendUrl("/update-cart"), {cart: cart}, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    })
-                    .then((res) => {
-                        if (res.data.valid) {
-                            alert("Added To Cart");
-                            addToCart(viewedProduct._id);
-                        }
-                    })
-                    .catch((err) => {
-                        alert(err.response ? err.response.data.message : "Some error occurred");
-                    })
-                }}>{viewedProduct.outOfStock ? "OUT OF STOCK" : "Add To Cart"}</button>
-                <button className="back-home-button secondary" onClick={() => {
-                    document.location.href = config.prefix
-                }}>Go to Homepage</button>
+                        axios.put(config.getBackendUrl("/update-cart"), {cart: cart}, {
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        })
+                        .then((res) => {
+                            if (res.data.valid) {
+                                alert("Added To Cart");
+                                addToCart(viewedProduct._id);
+                            }
+                        })
+                        .catch((err) => {
+                            alert(err.response ? err.response.data.message : "Some error occurred");
+                        })
+                    }}>{viewedProduct.outOfStock ? "OUT OF STOCK" : "Add To Cart"}</button>
+                    <button className="back-home-button secondary" onClick={() => {
+                        document.location.href = config.prefix
+                    }}>Go to Homepage</button>
+                </div>
             </div>
         </div>
     </div>

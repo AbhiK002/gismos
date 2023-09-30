@@ -1,8 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import config from "../../config";
 import './profile.css';
+import { useEffect } from "react";
 
-function Profile({userDetails}) {    
+function Profile({userDetails}) {   
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        if (userDetails._id == null) {
+            navigate(config.loginPage);
+        }
+    })
+    
     return <div className="profile-main">
         <h1>Profile</h1>
         <div className="profile-card">

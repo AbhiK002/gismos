@@ -28,6 +28,7 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
             productBrands.push(brand)
         }
     }
+    productBrands.sort((a, b) => {return a.localeCompare(b)})
 
     const navigate = useNavigate();
     let [categoryFilters, setCategoryFilters] = useState([])
