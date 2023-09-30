@@ -17,6 +17,8 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
 
     let productCategories = [];
     let productBrands = [];
+    let lowerPriceLimit = 0;
+    let upperPriceLimit = 200;
     for (const product of productsListCopy) {
         let category = product.category;
         let brand = product.title.split(" ")[0];
@@ -27,14 +29,19 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
         if (!productBrands.includes(brand)) {
             productBrands.push(brand)
         }
+        if (product.price > upperPriceLimit) {
+            upperPriceLimit = product.price + 15000;
+        }
     }
     productBrands.sort((a, b) => {return a.localeCompare(b)})
 
     const navigate = useNavigate();
-    let [categoryFilters, setCategoryFilters] = useState([])
-    let [brandFilters, setBrandFilters] = useState([])
+    let [categoryFilters, setCategoryFilters] = useState([]);
+    let [brandFilters, setBrandFilters] = useState([]);
+    let [outOfStockFilter, setOutOfStockFilter] = useState(false);
+    let [lowerPriceLimitFilter, setLowerPriceLimitFilter] = useState(lowerPriceLimit);
+    let [upperPriceLimitFilter, setUpperPriceLimitFilter] = useState(upperPriceLimit);
     let [sortingModeIndex, setSortingModeIndex] = useState(0);
-
 
     if (productsListCopy[0] == "ERROR") {
         return <>Some Error Occurred. Try refreshing the page</>
@@ -49,6 +56,17 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
 
         let brand = product.title.split(" ")[0];
         if (brandFilters.length > 0 && !brandFilters.includes(brand)) {
+            return;
+        }
+
+        if (outOfStockFilter && product.outOfStock) {
+            return;
+        }
+
+        if (lowerPriceLimitFilter > 0 && product.price < lowerPriceLimitFilter) {
+            return;
+        }
+        if (upperPriceLimitFilter > 0 && product.price > upperPriceLimitFilter) {
             return;
         }
 
@@ -117,6 +135,16 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                     for (const check of document.getElementsByClassName("filter-checkbox")) {
                         check.checked = false;
                     }
+
+                    setTimeout(() => {
+                        document.getElementById("low-price-num").value = "";
+                        document.getElementById("up-price-num").value = "";
+                    }, 10);
+                    setLowerPriceLimitFilter(lowerPriceLimit);
+                    setUpperPriceLimitFilter(upperPriceLimit);
+                    
+                    setOutOfStockFilter(false);
+                    document.getElementById("out1").checked = false;
                 }} type='button' className="clear-filters-button">Clear All Filters</button>
                 <div className='filter-section' id="category">
                     <h4>Filter by Category</h4>
@@ -142,6 +170,49 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                             check.checked = false;
                         }
                     }} type='button' className="clear-filters-button secondary">Clear</button>
+                </div>
+                <div className="filter-section" id="price">
+                    <h4>Filter by Price</h4>
+                    <div className="filter-price-outer">
+                        {/* <label htmlFor='high-price-range'>Minimum Price</label> */}
+                        <input type="number" id="low-price-num" placeholder='Minimum' className='price-num' min={0} max={upperPriceLimit} step={500}/>
+                        
+                        {/* <label htmlFor='up-price-range'>Maximum Price</label> */}
+                        <input type="number" id="up-price-num" placeholder='Maximum' className='price-num' min={0} max={upperPriceLimit} step={500}/>
+
+                        <div className="buttons">
+                            <button type='button' className='go-filters-button' onClick={() => {
+                                setLowerPriceLimitFilter(document.getElementById("low-price-num").value);
+                                setUpperPriceLimitFilter(document.getElementById("up-price-num").value);
+                            }}>Go</button>
+                            <button type='button' className='clear-filters-button secondary' onClick={() => {
+                                setTimeout(() => {
+                                    document.getElementById("low-price-num").value = "";
+                                    document.getElementById("up-price-num").value = "";
+                                }, 10);
+                                setLowerPriceLimitFilter(lowerPriceLimit);
+                                setUpperPriceLimitFilter(upperPriceLimit);
+                            }}>Clear</button>
+                        </div>
+                    </div>
+                </div>
+                <div className="filter-section" id="out-of-stock">
+                    <h4>Filter by Out Of Stock</h4>
+                    <div className="filter-item">
+                        <input type="checkbox" id="out1" value={false} onChange={(e) => {
+                            if (e.target.checked) {
+                                setOutOfStockFilter(true);
+                            }
+                            else {
+                                setOutOfStockFilter(false);
+                            }
+                        }} className='filter-checkbox' />
+                        <label htmlFor="out1">Hide Out of Stock</label>
+                    </div>
+                    <button type='button' className='clear-filters-button secondary' onClick={() => {
+                        document.getElementById("out1").checked = false;
+                        setOutOfStockFilter(false);
+                    }}>Clear</button>
                 </div>
                 <div className='filter-section' id="brand">
                     <h4>Filter by Brand</h4>
