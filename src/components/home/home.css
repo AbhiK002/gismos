@@ -14,6 +14,11 @@
     background-color: white;
 }
 
+.filters-scroll {
+    display: flex;
+    flex-direction: column;
+}
+
 .filter-section {
     padding: 2rem;
     background-color: var(--color-6);
@@ -77,6 +82,7 @@
     font-size: 2rem;
     padding: 4px 8px;
     margin-top: 8px;
+    margin-bottom: 0;
 }
 
 .home-content-container {
@@ -222,6 +228,11 @@
         border: 2px solid var(--grey-2);
         border-radius: 8px;
         z-index: 1;
+    }
+
+    .filter-price-outer .price-num {
+        padding: 1.5rem;
+        font-size: 2.5rem;
     }
 
     .filters-scroll {
