@@ -5,12 +5,19 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 let sortingMethods = [
-    { value: "category", name: "Category", func: (a, b) => a._id.localeCompare(b._id) },
+    { value: "featured", name: "Featured", func: null },
     { value: "price-asc", name: "Price (Low to High)", func: (a, b) => a.price - b.price },
     { value: "price-desc", name: "Price (High to Low)", func: (a, b) => b.price - a.price },
     { value: "name-asc", name: "Name (A-Z)", func: (a, b) => a.title.localeCompare(b.title) },
     { value: "name-desc", name: "Name (Z-A)", func: (a, b) => b.title.localeCompare(a.title) }
 ];
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
 function Home({userDetails, changeProductView, addToCart, productsList, userCart}) {
     let productsListCopy = [...productsList];
@@ -47,7 +54,9 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
         return <>Some Error Occurred. Try refreshing the page</>
     }
 
-    productsListCopy.sort(sortingMethods[sortingModeIndex].func);
+    if (sortingMethods[sortingModeIndex].value != "featured") productsListCopy.sort(sortingMethods[sortingModeIndex].func);
+    else shuffleArray(productsListCopy);
+    
     let numberOfFilteredProducts = 0;
     let sortedAndFilteredProducts = productsListCopy.map((product) => {
         if (categoryFilters.length > 0 && !categoryFilters.includes(product.category)) {
