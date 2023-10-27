@@ -45,7 +45,7 @@ function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
                             navigate(config.loginPage);
                             return;
                         }
-                        if (userCart.includes(product._id)) {
+                        if (userCart.includes(viewedProduct._id)) {
                             alert("Product already added to cart");
                             return;
                         }
