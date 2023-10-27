@@ -50,7 +50,7 @@ function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
                             return;
                         }
                         const token = localStorage.getItem(config.localTokenKey)
-                        const cart = [...userCart, product._id];
+                        const cart = [...userCart, viewedProduct._id];
 
                         axios.put(config.getBackendUrl("/update-cart"), {cart: cart}, {
                             headers: {
