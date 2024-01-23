@@ -101,6 +101,7 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                         return;
                     }
                     if (!userDetails._id) {
+                        document.getElementById("cart-view").classList.remove("visible") 
                         alert("Please log in to add to cart");
                         navigate(config.loginPage);
                         return;
