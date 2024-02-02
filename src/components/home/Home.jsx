@@ -27,18 +27,20 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
     let productBrands = [];
     let lowerPriceLimit = 0;
     let upperPriceLimit = 200;
-    for (const product of productsListCopy) {
-        let category = product.category;
-        let brand = product.title.split(" ")[0];
-
-        if (!productCategories.includes(category)) {
-            productCategories.push(category)
-        } 
-        if (!productBrands.includes(brand)) {
-            productBrands.push(brand)
-        }
-        if (product.price > upperPriceLimit) {
-            upperPriceLimit = product.price + 15000;
+    if (productsListCopy[0] != "ERROR") {
+        for (const product of productsListCopy) {
+            let category = product.category;
+            let brand = product.title ? product.title.split(" ")[0] : " ";
+    
+            if (!productCategories.includes(category)) {
+                productCategories.push(category)
+            } 
+            if (!productBrands.includes(brand)) {
+                productBrands.push(brand)
+            }
+            if (product.price > upperPriceLimit) {
+                upperPriceLimit = product.price + 15000;
+            }
         }
     }
     productBrands.sort((a, b) => {return a.localeCompare(b)})
@@ -51,20 +53,20 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
     let [upperPriceLimitFilter, setUpperPriceLimitFilter] = useState(upperPriceLimit);
     let [sortingModeIndex, setSortingModeIndex] = useState(0);
 
-    if (productsListCopy[0] == "ERROR") {
-        return <>Some Error Occurred. Try refreshing the page</>
-    }
+    // if (productsListCopy[0] == "ERROR") {
+    //     return <>Some Error Occurred. Try refreshing the page</>
+    // }
 
     if (sortingMethods[sortingModeIndex].value != "featured") productsListCopy.sort(sortingMethods[sortingModeIndex].func);
     else shuffleArray(productsListCopy);
     
     let numberOfFilteredProducts = 0;
-    let sortedAndFilteredProducts = productsListCopy.map((product) => {
+    let sortedAndFilteredProducts = productsListCopy[0] != "ERROR" ? productsListCopy.map((product) => {
         if (categoryFilters.length > 0 && !categoryFilters.includes(product.category)) {
             return;
         }
 
-        let brand = product.title.split(" ")[0];
+        let brand = product.title ? product.title.split(" ")[0] : "";
         if (brandFilters.length > 0 && !brandFilters.includes(brand)) {
             return;
         }
@@ -132,7 +134,7 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                 }}>{product.outOfStock ? "OUT OF STOCK" : "Add To Cart"}</button>
             </div>
         </div>
-    })
+    }) : []
 
     return <div className='home-main'>
         <div className='filters-menu'>
@@ -271,13 +273,17 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                     </select>
                 </div>
             </div>
-            <div className="home-content"> 
+            {
+                productsListCopy[0] == "ERROR" ? 
+                <>Some error occurred while retrieving products :(</> :
+                <div className="home-content"> 
                 {
                     numberOfFilteredProducts < 1 && brandFilters.length != 0 && categoryFilters.length != 0
                     ? <p>No such products found</p>
                     : sortedAndFilteredProducts
                 }
-            </div>
+                </div>
+            }
         </div>
     </div>
 }

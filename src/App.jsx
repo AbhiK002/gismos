@@ -122,12 +122,31 @@ function App() {
         if (productsList.length > 0) {
             return;
         }
+        const loadingToast = toast.loading("Fetching products... Please wait", {
+            position: "top-center"
+        });
         axios.get(config.getBackendUrl("/get-products")).then((res) => {
             if (res.data.valid) {
-                changeProductsList(res.data.products);    
+                changeProductsList(res.data.products);
+                toast.update(loadingToast, {
+                    render: "Successfully Loaded",
+                    type: "success",
+                    autoClose: 1000,
+                    isLoading: false,
+                    closeButton: true,
+                    pauseOnHover: false,
+                })
             }
         }).catch((err) => {
-            changeProductsList(["ERROR"])
+            changeProductsList(["ERROR"]);
+            toast.update(loadingToast, {
+                type: "error",
+                isLoading: false,
+                autoClose: 10000,
+                closeButton: true,
+                pauseOnHover: false,
+                render: "Products couldn't be loaded"
+            })
         })
     }, [])
 
