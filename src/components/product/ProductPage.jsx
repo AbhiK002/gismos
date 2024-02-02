@@ -3,6 +3,7 @@ import './product-page.css';
 import config from '../../config';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
     const navigate = useNavigate();
@@ -42,12 +43,12 @@ function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
                         }
                         if (!userDetails._id) {
                             document.getElementById("cart-view").classList.remove("visible") 
-                            alert("Please log in to add to cart");
+                            toast.warning("Please log in to add to cart");
                             navigate(config.loginPage);
                             return;
                         }
                         if (userCart.includes(viewedProduct._id)) {
-                            alert("Product already added to cart");
+                            toast.error("Product already added to cart");
                             return;
                         }
                         const token = localStorage.getItem(config.localTokenKey)
@@ -60,12 +61,12 @@ function ProductPage({userDetails, currentProduct, addToCart, userCart}) {
                         })
                         .then((res) => {
                             if (res.data.valid) {
-                                alert("Added To Cart");
+                                toast.success("Added To Cart");
                                 addToCart(viewedProduct._id);
                             }
                         })
                         .catch((err) => {
-                            alert(err.response ? err.response.data.message : "Some error occurred");
+                            toast.error(err.response ? err.response.data.message : "Some error occurred");
                         })
                     }}>{viewedProduct.outOfStock ? "OUT OF STOCK" : "Add To Cart"}</button>
                     <button className="back-home-button secondary" onClick={() => {

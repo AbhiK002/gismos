@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from '../../config';
 import './confirm.css';
+import { toast } from 'react-toastify';
 
 function Confirm({userDetails, productsList, userCart, removeFromCart}) {
     let totalPrice = 0;
@@ -47,7 +48,7 @@ function Confirm({userDetails, productsList, userCart, removeFromCart}) {
         </div>
         <button className='confirm-order-button' onClick={() => {
             if (userCart.length < 1) {
-                alert("Add some items to your cart first");
+                toast.error("Add some items to your cart first");
                 return
             }
             const inps = document.getElementsByClassName("inp");
@@ -56,7 +57,7 @@ function Confirm({userDetails, productsList, userCart, removeFromCart}) {
                 if (inp.checked) aa++;
             }
             if (aa == 0) {
-                alert("Select at least 1 option");
+                toast.warning("Select at least 1 option");
                 return;
             }
             
@@ -71,12 +72,12 @@ function Confirm({userDetails, productsList, userCart, removeFromCart}) {
             })
             .then((res) => {
                 if (res.data.valid) {
-                    alert("Order Placed!");
+                    toast.success("Order Placed!");
                     document.location.href = config.prefix;
                 }
             })
             .catch((err) => {
-                alert(err.response ? err.response.data.message : "Some error occurred");
+                toast.error(err.response ? err.response.data.message : "Some error occurred");
                 document.location.href = config.prefix;
             })
         }}>CONFIRM ORDER</button>

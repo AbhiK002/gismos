@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import config from "../../config";
 import './profile.css';
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 function Profile({userDetails}) {   
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Profile({userDetails}) {
             <button onClick={() => {
                 sessionStorage.clear()
                 localStorage.clear()
-                alert("Logged Out Successfully")
+                toast.success("Logged Out Successfully")
                 document.location.href = config.prefix
             }}>Logout</button>
         </div>

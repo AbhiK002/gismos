@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import config from "../../config.js";
+import { toast } from "react-toastify";
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -11,20 +12,20 @@ export const Register = (props) => {
         e.preventDefault();
         
         if(name.trim().length < 1 || email.trim().length < 1 || pass.length < 1) {
-            alert("Please fill all the details")
+            toast.warning("Please fill all the details")
             return;
         }
 
         axios.post(config.getBackendUrl("/register-gismos"), {name: name, email: email, password: pass})
         .then((res) => {
-            alert(res.data.message)
+            toast.success(res.data.message)
             if (res.data.valid) {
                 if (res.data.token) localStorage.setItem(config.localTokenKey, res.data.token);
                 document.location.href = config.prefix;
             }
         })
         .catch((err) => {
-            alert(err.response ? err.response.data.message : "Some error occurred");
+            toast.error(err.response ? err.response.data.message : "Some error occurred");
         })
     }
 

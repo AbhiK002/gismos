@@ -1,5 +1,6 @@
 import {Route, Routes, useNavigate} from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 import FormApp from './components/loginRegister/FormApp.jsx';
 import Home from './components/home/Home.jsx';
 import { useEffect, useState } from 'react';
@@ -106,12 +107,12 @@ function App() {
         })
         .then((res) => {
             if (res.data.valid) {
-                alert("Removed From Cart");
+                toast.info("Removed From Cart");
                 setUserCart(list);
             }
         })
         .catch((err) => {
-            alert(err.response ? err.response.data.message : "Some error occurred");
+            toast.error(err.response ? err.response.data.message : "Some error occurred");
         })
     }
     function changeProductsList(list) {
@@ -161,7 +162,7 @@ function App() {
             }).catch(err => {
                 removeSessionUser();
                 removeToken();
-                alert(err.response ? err.response.data.message : "Some error occurred");
+                toast.error(err.response ? err.response.data.message : "Some error occurred");
             })
         }
         else {
@@ -173,6 +174,7 @@ function App() {
     let currentSessionActive = isSessionActive();
 
     return <div className='app'>
+    <ToastContainer />
         <div id='cart-view'>
             <h2>Your Cart {`(${userCart.length})`}</h2>
             <button className='close-menu critical' onClick={() => {

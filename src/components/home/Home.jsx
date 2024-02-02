@@ -3,6 +3,7 @@ import config from '../../config';
 import './home.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 let sortingMethods = [
     { value: "featured", name: "Featured", func: null },
@@ -102,12 +103,12 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                     }
                     if (!userDetails._id) {
                         document.getElementById("cart-view").classList.remove("visible") 
-                        alert("Please log in to add to cart");
+                        toast.warning("Please log in to add to cart");
                         navigate(config.loginPage);
                         return;
                     }
                     if (userCart.includes(product._id)) {
-                        alert("Product already added to cart");
+                        toast.error("Product already added to cart");
                         return;
                     }
                     const token = localStorage.getItem(config.localTokenKey)
@@ -121,12 +122,12 @@ function Home({userDetails, changeProductView, addToCart, productsList, userCart
                     })
                     .then((res) => {
                         if (res.data.valid) {
-                            alert("Added To Cart");
+                            toast.success("Added To Cart");
                             addToCart(product._id);
                         }
                     })
                     .catch((err) => {
-                        alert(err.response ? err.response.data.message : "Some error occurred");
+                        toast.error(err.response ? err.response.data.message : "Some error occurred");
                     })
                 }}>{product.outOfStock ? "OUT OF STOCK" : "Add To Cart"}</button>
             </div>
